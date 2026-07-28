@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#061847" />
+    <title>Frontend Unit Testing | Areeb Technology</title>
+    <!-- Tailwind Play CDN keeps this presentation self-contained and build-free. -->
+    <script>
+      tailwind = {
+        config: {
+          theme: {
+            extend: {
+              colors: {
+                areeb: {
+                  navy: "#061847",
+                  blue: "#1c63ef",
+                  cyan: "#65dcff",
+                },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script integrity crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+
+  <body>
+    <main class="deck antialiased" aria-label="Frontend Unit Testing presentation">
+      <header class="topbar">
+        <img src="areeb-logo.svg" alt="Areeb Technology" /><span class="counter"
+          ><span id="current">01</span> / 17</span
+        ><span class="website">www.areebtechnology.com</span>
+      </header>
+
+      <section class="slides">
+        <article class="slide active">
+          <p class="eyebrow">Engineering Playbook · 2026</p>
+
+          <h1 class="text-4xl font-semibold">Frontend<br /><span class="accent">Unit Testing</span></h1>
+
+          <p class="lead mt-4">
+            Build confidence in every component, function, and user
+            interaction—before it reaches production.
+          </p>
+
+          <div class="pills mt-4">
+            <span class="pill">Angular focused</span>
+            <span class="pill">Practical examples</span>
+          </div>
+
+          <div class="orbital"><i class="dot"></i></div>
+        </article>
+
+        <article
+          class="slide"
+        >
+          <div class="grid items-center gap-10 md:grid-cols-2">
+            <div>
+              <h2 class="max-w-xl text-3xl font-semibold leading-tight tracking-tight text-white md:text-5xl">
+                Welcome to today's session!
+              </h2>
+              <p class="mt-6 max-w-xl text-base leading-relaxed text-gray-300 md:text-xl">
+                We'll explore how unit testing helps frontend teams deliver
+                reliable features, refactor confidently, and catch defects
+                before they reach users.
+              </p>
+              <div class="mt-12">
+                <p class="text-lg font-semibold text-white">Ahmed Gamal</p>
+                <p class="mt-1 text-sm font-medium text-gray-300">
+                  Frontend Developer
+                </p>
+              </div>
+            </div>
+            <div class="orbital"><i class="dot"></i></div>
+          </div>
+        </article>
+
+        <article class="slide">
+          <p class="eyebrow">01 · The route ahead</p>
+          <h2 class="text-2xl font-semibold">Today's <strong>agenda</strong></h2>
+          <div class="agenda">
+            <div class="glass">
+              <b>01 — WHY</b><span>Value of unit tests</span>
+            </div>
+            <div class="glass">
+              <b>02 — FOUNDATIONS</b><span>Types of testing</span>
+            </div>
+            <div class="glass">
+              <b>03 — WORKFLOWS</b><span>Driven development</span>
+            </div>
+            <div class="glass">
+              <b>04 — DEPTH</b><span>Isolation to integration</span>
+            </div>
+            <div class="glass">
+              <b>05 — DOUBLES</b><span>Dummies, stubs & spies</span>
+            </div>
+            <div class="glass">
+              <b>06 — PATTERNS</b><span>AAA, guard & BDD</span>
+            </div>
+            <div class="glass">
+              <b>07 — TOOLKIT</b><span>Tools & test runners</span>
+            </div>
+            <div class="glass">
+              <b>08 — CRAFT</b><span>Practices & pitfalls</span>
+            </div>
+            <div class="glass">
+              <b>09 — SIGNAL</b><span>Coverage & real cases</span>
+            </div>
+            <div class="glass">
+              <b>10 — ANGULAR</b><span>Applied examples</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="slide">
+          <div class="split">
+            <div>
+              <p class="eyebrow">01 · Value of unit tests</p>
+              <h2 class="text-2xl font-semibold">Fast feedback creates <strong>fearless change.</strong></h2>
+              <p class="lead">
+                Unit tests validate small pieces of behavior in isolation. They
+                catch regressions at the cheapest possible moment: while the
+                code is still on your machine.
+              </p>
+              <p class="quote">
+                “Tests are executable documentation: they show what the code
+                promises to do.”
+              </p>
+            </div>
+            <div class="metrics">
+              <div class="metric glass">
+                <span class="number">Seconds</span>
+                <p>to run a focused test and get feedback.</p>
+              </div>
+              <div class="metric glass">
+                <span class="number">Safer</span>
+                <p>refactoring with protected behavior.</p>
+              </div>
+              <div class="metric glass">
+                <span class="number">Clearer</span>
+                <p>design through visible dependencies.</p>
+              </div>
+              <div class="metric glass">
+                <span class="number">Fewer</span>
+                <p>escaped defects in core logic.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="slide">
+          <div class="split">
+            <div>
+              <p class="eyebrow">02 · Test strategy</p>
+              <h2 class="text-2xl font-semibold">Use the <strong>testing pyramid</strong></h2>
+              <p class="lead">
+                A healthy suite has many fast, focused unit tests; fewer
+                integration tests; and a small number of slower end-to-end
+                checks.
+              </p>
+              <div class="legend mt-4">
+                <span><i style="background: #54e1ab"></i>Fast & stable</span
+                ><span
+                  ><i style="background: #ffc55d"></i>Connected systems</span
+                ><span><i style="background: #fa82c6"></i>Full journey</span>
+              </div>
+            </div>
+            <div class="pyramid">
+              <div class="e2e">E2E · Full journey</div>
+              <div class="integration">Integration · Component + API</div>
+              <div class="unit">Unit · Functions, services, components</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="slide">
+          <p class="eyebrow">03 · driven development</p>
+          <h2 class="text-2xl font-semibold">Types of <strong>driven development</strong></h2>
+          <div class="four">
+            <div class="principle glass">
+              <i>💬</i>
+              <h3>BDD</h3>
+              <p>
+                Behavior-driven development: describe behavior in a shared, readable Given–When–Then
+                language.
+              </p>
+            </div>
+            <div class="principle glass">
+              <i>↻</i>
+              <h3>TDD</h3>
+              <p>Test-driven development: write a failing unit test, make it pass, then refactor.</p>
+            </div>
+            <div class="principle glass">
+              <i>✓</i>
+              <h3>ATDD</h3>
+              <p>
+                Acceptance-driven development: collaborate on acceptance criteria before implementation begins.
+              </p>
+            </div>
+            <div class="principle glass">
+              <i>◇</i>
+              <h3>EDD</h3>
+              <p>
+                Example-driven development: use concrete examples or story tests to clarify expected
+                outcomes.
+              </p>
+            </div>
+          </div>
+          <p class="note mt-4">
+            All five approaches shift clarification earlier—before ambiguous
+            requirements become bugs.
+          </p>
+        </article>
+
+        <article class="slide">
+          <p class="eyebrow">04 · Test depth</p>
+          <h2 class="text-2xl font-semibold">Choose the right <strong>test depth</strong></h2>
+          <div class="split">
+            <div class="pyramid">
+              <div class="e2e">Deep integration</div>
+              <div class="integration">Shallow integration</div>
+              <div class="unit">Isolated unit tests</div>
+            </div>
+            <div class="points">
+              <div class="glass">
+                <b>Isolated unit testing</b>
+                <p>
+                  Replace every dependency; test the service or class alone.
+                </p>
+              </div>
+              <div class="glass">
+                <b>Shallow integration tests</b>
+                <p>
+                  Render the host component while stubbing children and external
+                  boundaries.
+                </p>
+              </div>
+              <div class="glass">
+                <b>Deep integration tests</b>
+                <p>
+                  Use real child components and providers to validate a feature
+                  slice.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="slide">
+          <p class="eyebrow">05 · Test doubles</p>
+          <h2 class="text-2xl font-semibold">Pick the right <strong>test double</strong></h2>
+          <div class="four">
+            <div class="principle glass">
+              <i>○</i>
+              <h3>Dummy</h3>
+              <p>Placeholder data required only to satisfy a parameter.</p>
+            </div>
+            <div class="principle glass">
+              <i>▣</i>
+              <h3>Stub</h3>
+              <p>Returns a prepared value, such as a fake HTTP response.</p>
+            </div>
+            <div class="principle glass">
+              <i>◉</i>
+              <h3>Spy</h3>
+              <p>Records whether a method was called and with which values.</p>
+            </div>
+            <div class="principle glass">
+              <i>◆</i>
+              <h3>Mock</h3>
+              <p>A controlled collaborator with expected interactions.</p>
+            </div>
+          </div>
+          <pre class="mt-4"><span class="blue">const</span> userApi = { getUser: jasmine.createSpy().and.returnValue(of(fakeUser)) };
+expect(userApi.getUser).toHaveBeenCalledWith(<span class="green">'42'</span>);</pre>
+        </article>
+
+        <article class="slide">
+          <p class="eyebrow">06 · Testing patterns</p>
+          <h2 class="text-2xl font-semibold">Testing patterns that <strong>tell a story</strong></h2>
+          <div class="aaa">
+            <div class="glass" data-step="A">
+              <span class="tag">AAA</span>
+              <h3>Arrange · Act · Assert</h3>
+              <p>Set up, invoke one behavior, verify its outcome.</p>
+            </div>
+            <div class="glass" data-step="G">
+              <span class="tag">GUARD</span>
+              <h3>Arrange · Assert · Act · Assert</h3>
+              <p>
+                Prove the guard condition, then execute and confirm the change.
+              </p>
+            </div>
+            <div class="glass" data-step="B">
+              <span class="tag">BDD</span>
+              <h3>Given · When · Then</h3>
+              <p>
+                Make scenarios readable for product and engineering together.
+              </p>
+            </div>
+          </div>
+          <pre class="mt-4"><span class="pink">it</span>(<span class="green">'Given an admin, when save is clicked, then persists the form'</span>, () =&gt; {
+  <span class="fade">// Given</span> component.user = admin;  <span class="fade">// When</span> component.save();
+  <span class="fade">// Then</span> expect(api.save).toHaveBeenCalled();
+});</pre>
+        </article>
+
+        <article class="slide">
+          <p class="eyebrow">07 · A repeatable rhythm</p>
+          <h2 class="text-2xl font-semibold">Structure every test with <strong>AAA</strong></h2>
+          <p class="lead">
+            Prepare the world, perform one behavior, then verify the outcome.
+          </p>
+          <div class="aaa">
+            <div class="glass" data-step="1">
+              <span class="tag">ARRANGE</span>
+              <h3>Set the scene</h3>
+              <p>Create inputs, fixtures, and test doubles.</p>
+            </div>
+            <div class="glass" data-step="2">
+              <span class="tag">ACT</span>
+              <h3>Do one thing</h3>
+              <p>Call the function or trigger the user action.</p>
+            </div>
+            <div class="glass" data-step="3">
+              <span class="tag">ASSERT</span>
+              <h3>Prove behavior</h3>
+              <p>Check the meaningful result.</p>
+            </div>
+          </div>
+          <pre class="mt-4"><span class="pink">it</span>(<span class="green">'calculates a discounted total'</span>, () =&gt; {
+  <span class="fade">// Arrange</span> <span class="blue">const</span> cart = { total: 100, discount: 0.2 };
+  <span class="fade">// Act</span>     <span class="blue">const</span> result = calculateTotal(cart);
+  <span class="fade">// Assert</span>  expect(result).toBe(80);
+});</pre>
+        </article>
+
+        <article class="slide">
+          <p class="eyebrow">08 · Pick the right tool</p>
+          <h2 class="text-2xl font-semibold">A practical <strong>testing toolkit</strong></h2>
+          <div class="tools">
+            <div class="tool glass">
+              <i>KJ</i>
+              <h3>Karma & Jasmine</h3>
+              <p>
+                Angular’s traditional browser-runner and BDD assertion
+                combination.
+              </p>
+            </div>
+
+            <div class="tool glass">
+              <i>J</i>
+              <h3>Jest</h3>
+              <p>Popular all-in-one runner, assertions, and mocks.</p>
+            </div>
+
+            <div class="tool glass">
+              <i>V</i>
+              <h3>Vitest</h3>
+              <p>Fast, Vite-native Jest-compatible experience.</p>
+            </div>
+
+            <div class="tool glass">
+              <i>C</i>
+              <h3>Cypress</h3>
+              <p>Great for E2E.</p>
+            </div>
+
+            <div class="tool glass">
+              <i>P</i>
+              <h3>Playwright</h3>
+              <p>Great for E2E.</p>
+            </div>
+
+            <div class="tool glass">
+              <i>S</i>
+              <h3>Storybook</h3>
+              <p>Test UI components in isolation.</p>
+            </div>
+          </div>
+          <p class="note mt-4">
+            Recommendation: use Angular TestBed with Jasmine/Karma or
+            Jest/Vitest, plus Testing Library principles for UI behavior.
+          </p>
+        </article>
+
+        <article class="slide">
+          <p class="eyebrow">09 · Make tests useful</p>
+          <h2 class="text-2xl font-semibold">Four habits of <strong>high-signal</strong> suites</h2>
+          <div class="four">
+            <div class="principle glass">
+              <i>🎯</i>
+              <h3>Test behavior</h3>
+              <p>Verify what users and callers observe, not private methods.</p>
+            </div>
+            <div class="principle glass">
+              <i>✂️</i>
+              <h3>Keep it focused</h3>
+              <p>One behavior per test makes failures immediately useful.</p>
+            </div>
+            <div class="principle glass">
+              <i>🏷️</i>
+              <h3>Name clearly</h3>
+              <p>Describe the scenario and expected result.</p>
+            </div>
+            <div class="principle glass">
+              <i>⚡</i>
+              <h3>Stay deterministic</h3>
+              <p>Control time, randomness, network, and state.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="slide">
+          <p class="eyebrow">10 · Warning signs</p>
+          <h2 class="text-2xl font-semibold">Common mistakes to <strong>avoid</strong></h2>
+          <div class="mistakes">
+            <div class="mistake glass">
+              <b>01</b>
+              <p>
+                <strong>Testing implementation details</strong><br />Refactors
+                break tests though behavior did not.
+              </p>
+            </div>
+            <div class="mistake glass">
+              <b>02</b>
+              <p>
+                <strong>Over-mocking everything</strong><br />Tests pass while
+                integrations quietly fail.
+              </p>
+            </div>
+            <div class="mistake glass">
+              <b>03</b>
+              <p>
+                <strong>Flaky async tests</strong><br />Use fakeAsync, tick, or
+                await settled promises.
+              </p>
+            </div>
+            <div class="mistake glass">
+              <b>04</b>
+              <p>
+                <strong>Chasing 100% coverage</strong><br />Coverage is a clue,
+                not proof of quality.
+              </p>
+            </div>
+            <div class="mistake glass">
+              <b>05</b>
+              <p>
+                <strong>Giant setup blocks</strong><br />Hide incidental details
+                with small helpers.
+              </p>
+            </div>
+            <div class="mistake glass">
+              <b>06</b>
+              <p>
+                <strong>Shared mutable state</strong><br />Reset fixtures so
+                test order never matters.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="slide">
+          <div class="coverage">
+            <div>
+              <p class="eyebrow">11 · Measure wisely</p>
+              <h2 class="text-2xl font-semibold">Coverage shows <strong>where to look.</strong></h2>
+              <p class="lead">
+                A high percentage is useful only when tests exercise meaningful
+                behavior, edge cases, and error paths.
+              </p>
+              <p class="quote">
+                Set a sensible threshold, then review uncovered critical
+                paths—not just the total.
+              </p>
+            </div>
+
+            <div>
+              <div class="ring"><b>78%</b><span>overall coverage</span></div>
+
+              <div class="bars mt-4">
+                <div class="bar-row">
+                  <span>Statements</span>
+                  <div class="bar"><i style="width: 82%"></i></div>
+                  <b>82%</b>
+                </div>
+                <div class="bar-row">
+                  <span>Branches</span>
+                  <div class="bar"><i style="width: 71%"></i></div>
+                  <b>71%</b>
+                </div>
+                <div class="bar-row">
+                  <span>Functions</span>
+                  <div class="bar"><i style="width: 86%"></i></div>
+                  <b>86%</b>
+                </div>
+                <div class="bar-row">
+                  <span>Lines</span>
+                  <div class="bar"><i style="width: 78%"></i></div>
+                  <b>78%</b>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="slide">
+          <p class="eyebrow">12 · Angular in practice</p>
+          <h2 class="text-2xl font-semibold mb-4">Test components from a <strong>user's view</strong></h2>
+          <div class="angular">
+            <div class="points">
+              <div class="glass">
+                <b>1. Configure TestBed</b>
+                <p>
+                  Provide the component, dependencies, and lightweight test
+                  doubles.
+                </p>
+              </div>
+              <div class="glass">
+                <b>2. Create & render</b>
+                <p>Call fixture.detectChanges() to update the DOM.</p>
+              </div>
+              <div class="glass">
+                <b>3. Interact & assert</b>
+                <p>
+                  Click, type, or inspect accessible content as a user would.
+                </p>
+              </div>
+            </div>
+            <pre><span class="pink">it</span>(<span class="green">'shows a welcome message'</span>, () =&gt; {
+  fixture = TestBed.createComponent(WelcomeComponent);
+  fixture.componentInstance.name = <span class="green">'Areeb'</span>;
+  fixture.detectChanges();
+  <span class="blue">const</span> text = fixture.nativeElement
+    .querySelector(<span class="green">'[data-testid="welcome"]'</span>).textContent;
+  expect(text).toContain(<span class="green">'Welcome, Areeb'</span>);
+});</pre>
+          </div>
+        </article>
+
+        <article class="slide">
+          <p class="eyebrow">13 · Test runners</p>
+          <h2 class="text-2xl font-semibold">One behavior, <strong>two test runners</strong></h2>
+
+          <div class="angular mt-4">
+            <div>
+              <span class="tag">SHARED APPLICATION CODE</span>
+              <pre><span class="blue">export function</span> calculateTotal(
+  price: number,
+  quantity: number,
+): number {
+  <span class="blue">return</span> price * quantity;
+}</pre>
+              <p class="quote">
+                Behavior: two items priced at 25 should total 50.
+              </p>
+            </div>
+            <div class="points">
+              <div class="glass">
+                <b>Jest</b>
+                <pre><span class="pink">import</span> { calculateTotal } <span class="pink">from</span> <span class="green">'./cart'</span>;
+
+<span class="pink">describe</span>(<span class="green">'calculateTotal'</span>, () =&gt; {
+  <span class="pink">it</span>(<span class="green">'multiplies price and quantity'</span>, () =&gt; {
+    expect(calculateTotal(25, 2)).toBe(50);
+  });
+});</pre>
+              </div>
+              <div class="glass">
+                <b>Jasmine + Karma</b>
+                <pre><span class="pink">import</span> { calculateTotal } <span class="pink">from</span> <span class="green">'./cart'</span>;
+
+<span class="pink">describe</span>(<span class="green">'calculateTotal'</span>, () =&gt; {
+  <span class="pink">it</span>(<span class="green">'multiplies price and quantity'</span>, () =&gt; {
+    expect(calculateTotal(25, 2)).toBe(50);
+  });
+});</pre>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="slide qa">
+          <p class="eyebrow">14 · Discussion</p>
+          <div class="question">?</div>
+          <h1 class="text-4xl font-semibold">Questions <span class="accent">& answers</span></h1>
+          <p class="lead my-4">
+            What part of your frontend would benefit most from a reliable, fast
+            feedback loop?
+          </p>
+          <div class="pills">
+            <span class="pill">Start small</span
+            ><span class="pill">Test behavior</span
+            ><span class="pill">Build confidence</span>
+          </div>
+        </article>
+      </section>
+      
+      <footer>
+        <span class="hint">Use ← → keys or swipe to navigate</span>
+        <div class="progress"><i id="progress"></i></div>
+        <div class="controls">
+          <button id="prev" aria-label="Previous slide">←</button
+          ><button id="next" aria-label="Next slide">→</button>
+        </div>
+      </footer>
+    </main>
+
+    <script src="script.js" defer></script>
+    <!-- Kept disabled as a migration fallback; active navigation is in script.js. -->
+    <script type="text/plain">
+      // Simple framework-free navigation: arrow keys, buttons, and touch swipes.
+      const slides = [...document.querySelectorAll(".slide")],
+        current = document.querySelector("#current"),
+        progress = document.querySelector("#progress");
+      let index = 0,
+        start = 0;
+      function goTo(next) {
+        const old = index;
+        index = (next + slides.length) % slides.length;
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === index);
+          slide.classList.toggle("exit", i === old && next > old);
+        });
+        current.textContent = String(index + 1).padStart(2, "0");
+        progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+      }
+      document.querySelector("#next").onclick = () => goTo(index + 1);
+      document.querySelector("#prev").onclick = () => goTo(index - 1);
+      document.addEventListener("keydown", (e) => {
+        if (["ArrowRight", "PageDown", " "].includes(e.key)) {
+          e.preventDefault();
+          goTo(index + 1);
+        } else if (["ArrowLeft", "PageUp"].includes(e.key)) {
+          e.preventDefault();
+          goTo(index - 1);
+        } else if (e.key === "Home") {
+          goTo(0);
+        } else if (e.key === "End") {
+          goTo(slides.length - 1);
+        }
+      });
+      const area = document.querySelector(".slides");
+      area.addEventListener(
+        "touchstart",
+        (e) => (start = e.changedTouches[0].screenX),
+        { passive: true },
+      );
+      area.addEventListener(
+        "touchend",
+        (e) => {
+          const distance = e.changedTouches[0].screenX - start;
+          if (Math.abs(distance) > 45) goTo(index + (distance < 0 ? 1 : -1));
+        },
+        { passive: true },
+      );
+    </script>
+  </body>
+</html>
